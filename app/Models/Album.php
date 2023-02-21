@@ -9,6 +9,8 @@ class Album extends Model
 {
     use HasFactory;
     protected $fillable = ['title', 'description', 'artist_id'];
+
+    protected $hidden = ['artist_id'];
     public function artist(){
         return $this->belongsTo(Artist::class);
     }
