@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('lyrics', function (Blueprint $table) {
             $table->id();
             $table->text('lyrics');
-            $table->boolean('approved');
             $table->foreignId('song_id')->references('id')->on('songs');
             $table->timestamps();
         });

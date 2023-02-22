@@ -33,5 +33,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
 Route::group(['middleware' => ['jwt.admin.verify']], function() {
     Route::apiResource('artist',ArtistsApiController::class);
+    Route::apiResource('lyrics', LyricsController::class);
 });
 
