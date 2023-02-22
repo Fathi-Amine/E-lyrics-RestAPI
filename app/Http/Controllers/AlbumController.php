@@ -7,6 +7,8 @@ use App\Http\Requests\StoreAlbumRequest;
 use App\Http\Requests\UpdateAlbumRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class AlbumController extends Controller
 {
@@ -50,8 +52,42 @@ class AlbumController extends Controller
      */
     public function update(UpdateAlbumRequest $request, Album $album): Response
     {
+        // $album->update($request->all());
+        // return response($album);
+
+    // // Check if the request has form data and handle it appropriately
+    // if ($request->headers->get('Content-Type') === 'multipart/form-data') {
+    //     // Get the form data from the request
+    //     $formData = $request->all();
+    //     // Update the album with the form data
+    //     $album->update($formData);
+    // } else {
+    //     // If the request doesn't have form data, update the album with the request data
+    //     $album->update($request->all());
+    // }
+
+    // // Return a response with the updated album
+    // return response($album);
+
+        // Log::info($request->all()); // add this line to log the form data
+
+        // $album->update($request->all());
+
+        // return response($album);
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'artist_id' => 'required|integer',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
         $album->update($request->all());
+    
         return response($album);
+
     }
 
     /**

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('lyrics');
             $table->boolean('approved');
-            $table->bigInteger('song_id');
+            $table->foreignId('song_id')->references('id')->on('songs');
             $table->timestamps();
         });
     }
