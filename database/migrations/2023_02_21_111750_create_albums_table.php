@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->bigInteger('artist_id');
+            $table->foreignId('artist_id')->references('id')->on('artists');
             $table->timestamps();
         });
     }

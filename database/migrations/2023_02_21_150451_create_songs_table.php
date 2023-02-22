@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('songs', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->year('release_year');
+            $table->foreignId('artist_id')->references('id')->on('artists');
+            $table->foreignId('album_id')->references('id')->on('albums');
             $table->timestamps();
         });
     }
