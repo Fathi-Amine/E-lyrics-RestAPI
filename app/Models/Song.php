@@ -20,6 +20,6 @@ class Song extends Model
     }
 
     public function song(){
-        return $this->hasOne(Lyrics::class);
+        return $this->hasMany(Lyrics::class);
     }
 }
