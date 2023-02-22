@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AlbumController;
-use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\ArtistsApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Models\Artist;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,14 +17,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+Route::post('/register',[UserController::class,'register']);
+Route::post('/login',[UserController::class,'login']);
+
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::post('/profile',[UserController::class,'profile']);
+    Route::post('/refresh',[UserController::class,'refresh']);
+    Route::post('/resetPassword',[UserController::class,'resetPassword']);
+    Route::post('/logout',[UserController::class,'logout']);
 });
 
-Route::get('artists', [ArtistController::class,'index']);
-Route::post('artists', [ArtistController::class,'store']);
-Route::put('artists/{artist}', [ArtistController::class,'update']);
-Route::get('artists/{artist}', [ArtistController::class,'show']);
-Route::delete('artists/{artist}', [ArtistController::class,'destroy']);
+Route::group(['middleware' => ['jwt.admin.verify']], function() {
+    Route::apiResource('artist',ArtistsApiController::class);
+});
 
-Route::apiResource('album',AlbumController::class);
