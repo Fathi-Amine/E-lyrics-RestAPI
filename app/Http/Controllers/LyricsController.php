@@ -54,7 +54,7 @@ class LyricsController extends Controller
         $lyrics->save();
         return response()->json([
         "success" => true,
-        "message" => "Product created successfully.",
+        "message" => "Lyrics created successfully.",
         "data" => $lyrics
         ]);
     }
@@ -112,7 +112,7 @@ class LyricsController extends Controller
         $lyrics->save();
         return response()->json([
         "success" => true,
-        "message" => "Product updated successfully.",
+        "message" => "Lyrics updated successfully.",
         "data" => $lyrics
         ]);
     }
@@ -132,7 +132,7 @@ class LyricsController extends Controller
         $lyrics->delete();
         return response()->json([
             "success" => true,
-            "message" => "Product deleted successfully.",
+            "message" => "Lyrics deleted successfully.",
             "data" => $lyrics
         ]);
     }
