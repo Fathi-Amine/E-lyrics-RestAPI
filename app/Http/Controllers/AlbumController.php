@@ -52,8 +52,8 @@ class AlbumController extends Controller
      */
     public function update(UpdateAlbumRequest $request, Album $album): Response
     {
-        // $album->update($request->all());
-        // return response($album);
+        $album->update($request->all());
+        return response($album);
 
     // // Check if the request has form data and handle it appropriately
     // if ($request->headers->get('Content-Type') === 'multipart/form-data') {
@@ -74,19 +74,19 @@ class AlbumController extends Controller
         // $album->update($request->all());
 
         // return response($album);
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'artist_id' => 'required|integer',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'title' => 'required|string',
+        //     'description' => 'required|string',
+        //     'artist_id' => 'required|integer',
+        // ]);
     
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json(['errors' => $validator->errors()], 422);
+        // }
     
-        $album->update($request->all());
+        // $album->update($request->all());
     
-        return response($album);
+        // return response($album);
 
     }
 
