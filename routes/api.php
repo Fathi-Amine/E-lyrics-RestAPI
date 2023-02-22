@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ArtistsApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 });
 
 Route::group(['middleware' => ['jwt.admin.verify']], function() {
-    Route::apiResource('artist',ArtistsApiController::class);
+    Route::apiResource('album',AlbumController::class);
 });
 
