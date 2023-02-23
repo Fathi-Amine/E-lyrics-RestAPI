@@ -9,6 +9,8 @@ class Song extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'release_year', 'artist_id', 'album_id'];
+    protected $hidden = ['artist_id', 'album_id'];
     public function album(){
         return $this->belongsTo(Album::class);
     }
@@ -18,6 +20,6 @@ class Song extends Model
     }
 
     public function song(){
-        return $this->hasOne(Lyrics::class);
+        return $this->hasMany(Lyrics::class);
     }
 }
