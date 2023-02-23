@@ -29,6 +29,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/profile',[UserController::class,'profile']);
     Route::post('/refresh',[UserController::class,'refresh']);
     Route::post('/resetPassword',[UserController::class,'resetPassword']);
+    Route::put('/update',[UserController::class,'updateProfile']);
     Route::post('/logout',[UserController::class,'logout']);
 });
 
