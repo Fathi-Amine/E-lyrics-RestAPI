@@ -31,7 +31,8 @@ class ArtistController extends Controller
 
         foreach($artists as $artist){
 
-            $data[]=$artist->Name;
+            $data[]=$artist->name;
+           
 
 
         }
@@ -60,11 +61,11 @@ class ArtistController extends Controller
     public function store(Request $request)
     {
         $this ->validate($request,[
-            'Name'=>'required'
+            'name'=>'required'
         ]);
 
         $artist = Artist::create([
-            'Name'=>$request->Name
+            'name'=>$request->name
 
 
         ]);
@@ -113,11 +114,11 @@ class ArtistController extends Controller
     public function update(Request $request, Artist $artist)
     {
         $this ->validate($request,[
-            'Name'=>'required'
+            'name'=>'required'
         ]);
 
         $artist->update([
-            'Name'=>$request->Name
+            'name'=>$request->name
 
 
         ]);
