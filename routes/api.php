@@ -1,11 +1,18 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
+
+use App\Http\Controllers\SongController;
+
+use App\Http\Controllers\ArtistController;
+
 use App\Http\Controllers\ArtistsApiController;
+use App\Http\Controllers\LyricsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Artist;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +41,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 });
 
 Route::group(['middleware' => ['jwt.admin.verify']], function() {
+    Route::apiResource('artist',ArtistController::class);
     Route::apiResource('album',AlbumController::class);
+    Route::apiResource('lyrics', LyricsController::class);
 });
 
+Route::apiResource('songs', SongController::class);
