@@ -122,4 +122,18 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function changeRole(Request $request, $user_id){
+        $user = User::findOrFail($user_id);
+
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'role' => 'required|integer|in:0,1,2',
+        ]);
+
+        $user->role = $validatedData['role'];
+        $user->save();
+
+        return response()->json(['message' => 'User role has been updated'], 200);
+    }
 }

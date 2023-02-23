@@ -41,9 +41,12 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 });
 
 Route::group(['middleware' => ['jwt.admin.verify']], function() {
-    Route::apiResource('artist',ArtistController::class);
+    
     Route::apiResource('album',AlbumController::class);
     Route::apiResource('lyrics', LyricsController::class);
+    Route::put('/role/{user_id}', [UserController::class,"changeRole"]);
 });
 
+
+Route::apiResource('artist',ArtistController::class)->middleware('jwt.artist.verify');
 Route::apiResource('songs', SongController::class);
