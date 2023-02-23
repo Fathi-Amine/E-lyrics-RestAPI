@@ -29,9 +29,13 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/refresh',[UserController::class,'refresh']);
     Route::post('/resetPassword',[UserController::class,'resetPassword']);
     Route::post('/logout',[UserController::class,'logout']);
+
+
 });
 
 Route::group(['middleware' => ['jwt.admin.verify']], function() {
-    Route::apiResource('artist',ArtistsApiController::class);
+
 });
+
+
 
