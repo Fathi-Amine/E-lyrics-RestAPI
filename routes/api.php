@@ -11,8 +11,9 @@ use App\Http\Controllers\LyricsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Models\Album;
 use App\Models\Artist;
-
+use Illuminate\Routing\Route as RoutingRoute;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,9 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/resetPassword',[UserController::class,'resetPassword']);
     Route::put('/update',[UserController::class,'updateProfile']);
     Route::post('/logout',[UserController::class,'logout']);
+    Route::get('/showAlbums',[AlbumController::class,'index']);
+    Route::get('/showArtists',[ArtistController::class,'index']);
+    Route::apiResource('lyrics', LyricsController::class);
 
 
 });
@@ -45,8 +49,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 Route::group(['middleware' => ['jwt.admin.verify']], function() {
 
     Route::apiResource('album',AlbumController::class);
-    Route::apiResource('lyrics', LyricsController::class);
     Route::put('/role/{user_id}', [UserController::class,"changeRole"]);
+    Route::apiResource('songs', SongController::class);
 });
 
 
@@ -55,4 +59,3 @@ Route::group(['middleware' => ['jwt.admin.verify']], function() {
 
 
 Route::apiResource('artist',ArtistController::class)->middleware('jwt.artist.verify');
-Route::apiResource('songs', SongController::class);

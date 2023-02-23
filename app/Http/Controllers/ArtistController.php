@@ -12,13 +12,13 @@ class ArtistController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     
-     
-  
+
+
+
      */
 
 
-  
+
     public function index()
     {
 
@@ -27,11 +27,12 @@ class ArtistController extends Controller
     }
 
     public function ArtistData($artists){
+        $data = [];
 
         foreach($artists as $artist){
 
             $data[]=$artist->Name;
-           
+
 
         }
         return $data;
@@ -70,7 +71,7 @@ class ArtistController extends Controller
         return response()->json($artist);
 
 
-        
+
     }
 
     /**
@@ -87,8 +88,8 @@ class ArtistController extends Controller
 
 
 
-       
-        
+
+
     }
 
     /**
@@ -136,6 +137,6 @@ class ArtistController extends Controller
             [
                 'message'=>'artist deleted succefully'
             ]
-        ); 
+        );
     }
 }
