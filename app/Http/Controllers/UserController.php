@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use GuzzleHttp\Psr7\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -99,4 +101,39 @@ class UserController extends Controller
 
     }
 
+    public function updateProfile(Request $request) :JsonResponse
+    {
+        $user = auth()->user();
+        // dd($user);
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|email|unique:users,email,'.$user->id,
+            'password' => 'nullable|string|confirmed|min:5',
+        ]);
+        
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password ? Hash::make($request->password) : $user->password,
+        ]);
+        
+        return response()->json([
+            'message' => 'User profile updated successfully',
+            'user' => $user,
+        ]);
+    }
+
+    public function changeRole(Request $request, $user_id){
+        $user = User::findOrFail($user_id);
+
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'role' => 'required|integer|in:0,1,2',
+        ]);
+
+        $user->role = $validatedData['role'];
+        $user->save();
+
+        return response()->json(['message' => 'User role has been updated'], 200);
+    }
 }
