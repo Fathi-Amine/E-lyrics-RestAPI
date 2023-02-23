@@ -38,14 +38,20 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/resetPassword',[UserController::class,'resetPassword']);
     Route::put('/update',[UserController::class,'updateProfile']);
     Route::post('/logout',[UserController::class,'logout']);
+
+
 });
 
 Route::group(['middleware' => ['jwt.admin.verify']], function() {
-    
+
     Route::apiResource('album',AlbumController::class);
     Route::apiResource('lyrics', LyricsController::class);
     Route::put('/role/{user_id}', [UserController::class,"changeRole"]);
 });
+
+
+
+
 
 
 Route::apiResource('artist',ArtistController::class)->middleware('jwt.artist.verify');
